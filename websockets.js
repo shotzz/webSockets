@@ -14,11 +14,11 @@ function openWSConnection() {
         };
         webSocket.onclose = function (closeEvent) {
             console.log("WebSocket CLOSE: " + JSON.stringify(closeEvent, null, 4));
-            document.getElementById("info").classList.add("closed");
+            document.getElementById("wrapper").classList.add("closed");
         };
         webSocket.onerror = function (errorEvent) {
             console.log("WebSocket ERROR: " + JSON.stringify(errorEvent, null, 4));
-            document.getElementById("info").classList.add("error");
+            document.getElementById("wrapper").classList.add("error");
         };
         webSocket.onmessage = function (messageEvent) {
             var wsMsg = messageEvent.data;
@@ -27,7 +27,7 @@ function openWSConnection() {
         };
     } catch (exception) {
         console.error(exception);
-        document.getElementById("info").classList.add("failed");
+        document.getElementById("wrapper").classList.add("failed");
     }
 }
 

@@ -33,15 +33,14 @@ body {
     text-align: center;
 }
 
-#info.closed,
-#info.error,
-#info.failed{
-    display: block;
+#wrapper {
+    width: 100%;
 }
 
-#wrapper {
-    padding: 60px;
-    width: 100%;
+#wrapper.closed #info,
+#wrapper.error #info,
+#wrapper.failed #info {
+    display: block;
 }
 
 #results {
@@ -49,8 +48,14 @@ body {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 60px auto;
     width: 80%;
+}
+
+#wrapper.closed #results,
+#wrapper.error #results,
+#wrapper.failed #results {
+    display: none;
 }
 
 .loading {
