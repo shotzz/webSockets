@@ -122,7 +122,7 @@ function updateRow(element, data) {
     var max = document.createElement("div");
     var min = document.createElement("div");
 
-    time.setAttribute("id", name + "-time");
+    time.setAttribute("id", data.name + "-time");
     price.setAttribute("class", "lastUpdated")
 
     name.innerText = data.name;

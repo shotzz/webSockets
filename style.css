@@ -106,3 +106,19 @@ body {
 .row.priceRise .lastUpdated {
     color: #0abe51;
 }
+
+
+@media only screen and (max-width: 600px) {
+    #results {
+        width: 100%;
+    }
+    .row div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    div[id$="-time"] {
+        display: none;
+    }
+}
