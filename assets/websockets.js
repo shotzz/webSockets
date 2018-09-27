@@ -1,8 +1,3 @@
-var webSocket   = null,
-    PRICE_RISE = 2,
-    PRICE_SAME = 1,
-    PRICE_FALL = 0;
-
 function openWSConnection() {
     var webSocketURL = "ws://stocks.mnet.website";
     console.log("openWSConnection::Connecting to: " + webSocketURL);
@@ -33,21 +28,16 @@ function openWSConnection() {
 
 openWSConnection();
 
-var stockObj = {};
+var webSocket   = null,
+    PRICE_RISE = 2,
+    PRICE_SAME = 1,
+    PRICE_FALL = 0,
+    stockObj = {};
 
 function renderStocks(wsMsg) {
     document.getElementById("wrapper").classList.remove("spinner");
-    var newArray = JSON.parse(wsMsg);
-
-    function getNewRow(id, sortVal) {
-        var div = document.createElement("div");
-        div.setAttribute("id", id);
-        div.setAttribute("class", "row");
-        div.setAttribute("data-sort-val", sortVal);
-        return div;
-    }
-
-    var table = document.getElementById("results");
+    var newArray = JSON.parse(wsMsg),
+        table = document.getElementById("results");
 
     newArray.forEach(function (stockData) {
         var name = stockData[0];
@@ -66,10 +56,20 @@ function renderStocks(wsMsg) {
                 table.appendChild(getNewRow(name, name));
             }
         }
+
         var stockElement = document.getElementById(name);
         updateStockObj(stockData, stockObj[name] || {});
         updateRow(stockElement, stockObj[name])
     });
+
+    function getNewRow(id, sortVal) {
+        var div = document.createElement("div");
+
+        div.setAttribute("id", id);
+        div.setAttribute("class", "row");
+        div.setAttribute("data-sort-val", sortVal);
+        return div;
+    }
 }
 
 function updateStockObj(stockData, stock) {
@@ -114,22 +114,22 @@ function updateStockObj(stockData, stock) {
 }
 
 function updateRow(element, data) {
-    element.innerHTML = "";
-
-    var name = document.createElement("div");
-    var price = document.createElement("div");
-    var time = document.createElement("div");
-    var max = document.createElement("div");
-    var min = document.createElement("div");
+    var name = document.createElement("div"),
+        price = document.createElement("div"),
+        time = document.createElement("div"),
+        max = document.createElement("div"),
+        min = document.createElement("div");
 
     time.setAttribute("id", data.name + "-time");
-    price.setAttribute("class", "lastUpdated")
+    price.setAttribute("class", "lastUpdated");
 
     name.innerText = data.name;
     price.innerText = data.price;
     time.innerText = Math.round(data.displayTime)==0? "Jus Now" : "Updated " + Math.round(data.displayTime) + " secs ago";
     max.innerText = data.max;
     min.innerText = data.min;
+
+    element.innerHTML = "";
 
     element.appendChild(name);
     element.appendChild(price);
