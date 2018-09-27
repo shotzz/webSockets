@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53025bf0-e066-41fd-a42f-c608f7479bfa" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/websockets.js" beforeDir="false" afterPath="$PROJECT_DIR$/websockets.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,19 +25,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="66" column="17" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
+            <state relative-caret-position="1170">
+              <caret line="78" selection-start-line="78" selection-end-line="78" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="websockets.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="websockets.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/websockets.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-332">
+            <state relative-caret-position="-306">
               <caret line="11" column="69" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="69" />
             </state>
           </provider>
@@ -149,12 +146,12 @@
       <option name="presentableId" value="Default" />
       <updated>1537971293960</updated>
       <workItem from="1537971295560" duration="4159000" />
-      <workItem from="1537976774173" duration="21437000" />
+      <workItem from="1537976774173" duration="21783000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25596000" />
+    <option name="totallyTimeSpent" value="25942000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -207,17 +204,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
+    <entry file="file://$PROJECT_DIR$/websockets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="66" column="17" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
+        <state relative-caret-position="-306">
+          <caret line="11" column="69" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="69" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/websockets.js">
+    <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-332">
-          <caret line="11" column="69" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="69" />
+        <state relative-caret-position="1170">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
         </state>
       </provider>
     </entry>
