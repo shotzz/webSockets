@@ -14,9 +14,11 @@ function openWSConnection() {
         };
         webSocket.onclose = function (closeEvent) {
             console.log("WebSocket CLOSE: " + JSON.stringify(closeEvent, null, 4));
+            document.getElementById("info").classList.add("closed");
         };
         webSocket.onerror = function (errorEvent) {
             console.log("WebSocket ERROR: " + JSON.stringify(errorEvent, null, 4));
+            document.getElementById("info").classList.add("error");
         };
         webSocket.onmessage = function (messageEvent) {
             var wsMsg = messageEvent.data;
@@ -25,6 +27,7 @@ function openWSConnection() {
         };
     } catch (exception) {
         console.error(exception);
+        document.getElementById("info").classList.add("failed");
     }
 }
 
@@ -154,7 +157,7 @@ setInterval(function () {
         if(presentTime - stockObj[stock].time > 60000) {
             stockObj[stock].displayTime = stockObj[stock].displayTime + 60;
 
-            document.getElementById(stock+"-time").innerText = stockObj[stock].displayTime || "Jus Now";
+            document.getElementById(stock+"-time").innerText = Math.round(stockObj[stock].displayTime) || "Jus Now";
         }
     });
 }, 60000);
