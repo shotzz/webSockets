@@ -1,4 +1,7 @@
-var webSocket   = null;
+var webSocket   = null,
+    PRICE_RISE = 2,
+    PRICE_SAME = 1,
+    PRICE_FALL = 0;
 
 function openWSConnection() {
     var webSocketURL = "ws://stocks.mnet.website";
@@ -6,6 +9,7 @@ function openWSConnection() {
     try {
         webSocket = new WebSocket(webSocketURL);
         webSocket.onopen = function(openEvent) {
+            document.getElementById("wrapper").classList.add("spinner");
             console.log("WebSocket OPEN: " + JSON.stringify(openEvent, null, 4));
         };
         webSocket.onclose = function (closeEvent) {
@@ -29,12 +33,14 @@ openWSConnection();
 var stockObj = {};
 
 function renderStocks(wsMsg) {
+    document.getElementById("wrapper").classList.remove("spinner");
     var newArray = JSON.parse(wsMsg);
 
-    function getNewRow(id) {
+    function getNewRow(id, sortVal) {
         var div = document.createElement("div");
         div.setAttribute("id", id);
         div.setAttribute("class", "row");
+        div.setAttribute("data-sort-val", sortVal);
         return div;
     }
 
@@ -44,7 +50,18 @@ function renderStocks(wsMsg) {
         var name = stockData[0];
 
         if(!stockObj[name]) {
-            table.appendChild(getNewRow(name));
+            var hasInserted = false;
+            Object.values(table.children).forEach(function(ele){
+                if(ele.dataset.sortVal){
+                    if(ele.dataset.sortVal > name && !hasInserted){
+                        table.insertBefore(getNewRow(name, name), ele);
+                        hasInserted = true;
+                    }
+                }
+            });
+            if(!hasInserted){
+                table.appendChild(getNewRow(name, name));
+            }
         }
         var stockElement = document.getElementById(name);
         updateStockObj(stockData, stockObj[name] || {});
@@ -57,19 +74,24 @@ function updateStockObj(stockData, stock) {
         price = stockData[1],
         max = stock.max || price,
         min = stock.min || price,
+        prevPrice = stock.price,
         presentTime = Date.now(),
         time = stock.time || presentTime,
-        priceRise = false,
-        priceFall = false,
-        displayTime = time;
+        displayTime = 0,
+        priceChange = PRICE_SAME;
 
-    if(stock) {
+    if(stock.name) {
         if(max<price) {
             max = price;
-            priceRise = true;
         } else if(min>price) {
             min = price;
-            priceFall = true;
+        }
+
+        if(prevPrice > price){
+            priceChange = PRICE_FALL;
+        }
+        else if(prevPrice < price){
+            priceChange = PRICE_RISE;
         }
 
         if(time <= presentTime) {
@@ -82,8 +104,7 @@ function updateStockObj(stockData, stock) {
         price: price,
         max: max,
         min: min,
-        priceRise: priceRise,
-        priceFall: priceFall,
+        priceChange: priceChange,
         time: presentTime,
         displayTime: displayTime
     };
@@ -99,6 +120,7 @@ function updateRow(element, data) {
     var min = document.createElement("div");
 
     time.setAttribute("id", name + "-time");
+    price.setAttribute("class", "lastUpdated")
 
     name.innerText = data.name;
     price.innerText = data.price;
@@ -112,9 +134,11 @@ function updateRow(element, data) {
     element.appendChild(max);
     element.appendChild(min);
 
-    if(data.priceRise) {
+    if(data.priceChange === PRICE_RISE) {
         element.classList.add("priceRise");
-    } else if(data.priceFall) {
+        element.classList.remove("priceFall");
+    } else if(data.priceChange === PRICE_FALL) {
+        element.classList.remove("priceRise");
         element.classList.add("priceFall");
     } else {
         element.classList.remove("priceRise");
@@ -130,7 +154,7 @@ setInterval(function () {
         if(presentTime - stockObj[stock].time > 60000) {
             stockObj[stock].displayTime = stockObj[stock].displayTime + 60;
 
-            document.getElementById(stock+"-time").innerText = stockObj[stock].displayTime;
+            document.getElementById(stock+"-time").innerText = stockObj[stock].displayTime || "Jus Now";
         }
     });
 }, 60000);
